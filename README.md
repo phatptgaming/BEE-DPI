@@ -79,20 +79,6 @@ Một số thông tin cần biết:
 - Ứng dụng không tự ý thay đổi DNS của card mạng. Việc áp dụng DNS thông qua DNS Manager chỉ diễn ra khi người dùng chủ động thực hiện.
 - Nhật ký hoạt động cục bộ được lưu tại `%LOCALAPPDATA%\BeeDPI\logs`.
 
-## ⚙️ Thành phần bên thứ ba
-
-BEE DPI tích hợp các thành phần mã nguồn mở phục vụ xử lý lưu lượng mạng, bao gồm:
-
-- **GoodbyeDPI** — công cụ xử lý các cơ chế Deep Packet Inspection.
-- **WinDivert** — thư viện hỗ trợ tương tác và xử lý lưu lượng mạng trên Windows.
-
-BEE DPI là sản phẩm độc lập được thiết kế và phát triển bởi **BirenDev**. Các thành phần bên thứ ba vẫn thuộc quyền tác giả và giấy phép tương ứng của dự án gốc.
-
-- [GoodbyeDPI – GitHub](https://github.com/ValdikSS/GoodbyeDPI)
-- [WinDivert – GitHub](https://github.com/basil00/Divert)
-
-Vui lòng giữ nguyên các thông báo bản quyền và giấy phép đi kèm khi phân phối lại những thành phần này.
-
 ## 🛠️ Mã nguồn
 
 Mã nguồn của dự án được công khai tại repository này:
