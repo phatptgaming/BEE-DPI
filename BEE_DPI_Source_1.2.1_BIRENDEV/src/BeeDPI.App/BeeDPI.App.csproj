@@ -1,0 +1,161 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>BeeDPI.App</RootNamespace>
+    <AssemblyName>BeeDPI</AssemblyName>
+    <ApplicationIcon>..\..\assets\bee.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>BeeDPI.App.App</StartupObject>
+
+    <!-- Single-file self-contained publish: bundle the .NET runtime and all
+         managed assemblies into BeeDPI.exe. Native engine files stay external
+         in the Engine/ folder. -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <PublishTrimmed>false</PublishTrimmed>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="..\..\assets\bee.ico" Link="assets\bee.ico" />
+    <Resource Include="Fonts\*.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The tray loader and the Start Menu shortcut read the icon file. -->
+    <Content Include="..\..\assets\bee.ico"
+             Link="assets\bee.ico"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BeeDPI.Core\BeeDPI.Core.csproj" />
+    <ProjectReference Include="..\BeeDPI.EngineHost\BeeDPI.EngineHost.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\engine\**\*"
+             Link="Engine\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="Always"
+             CopyToPublishDirectory="Always" />
+    <Content Include="..\..\licenses\**\*"
+             Link="LICENSE\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\THIRD-PARTY-NOTICES.txt"
+             Link="THIRD-PARTY-NOTICES.txt"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\README.md"
+             Link="README.md"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\tools\dns-manager.ps1"
+             Link="tools\dns-manager.ps1"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\docs\DNS-PROVIDERS.md"
+             Link="docs\DNS-PROVIDERS.md"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\docs\ENGINE-COMPATIBILITY.md"
+             Link="docs\ENGINE-COMPATIBILITY.md"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\docs\screenshots\*.png"
+             Link="docs\screenshots\%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\CHANGELOG.md"
+             Link="CHANGELOG.md"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\REPORT-1.2.0-rc.md"
+             Link="REPORT-1.2.0-rc.md"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\REPORT-1.2.1-rc.md"
+             Link="REPORT-1.2.1-rc.md"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\REPORT-1.2.1-rc2-STARTUP-FIX.md"
+             Link="REPORT-1.2.1-rc2-STARTUP-FIX.md"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\REPORT-1.2.1-rc3.md"
+             Link="REPORT-1.2.1-rc3.md"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\installer\install.ps1"
+             Link="install.ps1"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\installer\uninstall.ps1"
+             Link="uninstall.ps1"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\installer\Cai dat BEE DPI.cmd"
+             Link="Cai dat BEE DPI.cmd"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <_EngineHostBinDir>$(MSBuildThisFileDirectory)..\BeeDPI.EngineHost\bin\</_EngineHostBinDir>
+    <_EngineHostBinDir Condition="'$(Platform)' != '' and '$(Platform)' != 'AnyCPU'">$(MSBuildThisFileDirectory)..\BeeDPI.EngineHost\bin\$(Platform)\</_EngineHostBinDir>
+    <_EngineHostOutputDir>$(_EngineHostBinDir)$(Configuration)\net10.0-windows\</_EngineHostOutputDir>
+    <_EngineHostOutputDir Condition="'$(RuntimeIdentifier)' != ''">$(_EngineHostBinDir)$(Configuration)\net10.0-windows\$(RuntimeIdentifier)\</_EngineHostOutputDir>
+  </PropertyGroup>
+
+  <Target Name="CopyEngineHostToBuild" AfterTargets="Build">
+    <ItemGroup>
+      <_EngineHostBuildFiles Include="$(_EngineHostOutputDir)BeeDPI.EngineHost.exe" />
+      <_EngineHostBuildFiles Include="$(_EngineHostOutputDir)BeeDPI.EngineHost.dll" />
+      <_EngineHostBuildFiles Include="$(_EngineHostOutputDir)BeeDPI.EngineHost.deps.json" />
+      <_EngineHostBuildFiles Include="$(_EngineHostOutputDir)BeeDPI.EngineHost.runtimeconfig.json" />
+      <_EngineHostBuildFiles Include="$(_EngineHostOutputDir)BeeDPI.Core.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_EngineHostBuildFiles)"
+          DestinationFolder="$(OutDir)"
+          SkipUnchangedFiles="true"
+          Condition="Exists('$(_EngineHostOutputDir)BeeDPI.EngineHost.exe')" />
+  </Target>
+
+  <Target Name="CopyEngineHostToPublish" AfterTargets="Publish">
+    <ItemGroup>
+      <_EngineHostPublishFiles Include="$(_EngineHostOutputDir)BeeDPI.EngineHost.exe" />
+      <_EngineHostPublishFiles Include="$(_EngineHostOutputDir)BeeDPI.EngineHost.runtimeconfig.json"
+                               Condition="Exists('$(_EngineHostOutputDir)BeeDPI.EngineHost.runtimeconfig.json')" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_EngineHostPublishFiles)"
+          DestinationFolder="$(PublishDir)"
+          SkipUnchangedFiles="true"
+          Condition="Exists('$(_EngineHostOutputDir)BeeDPI.EngineHost.exe')" />
+  </Target>
+
+  <Target Name="CopyContentForSingleFilePublish" AfterTargets="Publish">
+    <!-- Single-file publish does not always copy Content items with Link metadata.
+         Explicitly copy Engine and assets from the build output directory. -->
+    <ItemGroup>
+      <_EngineFiles Include="$(TargetDir)Engine\**\*" />
+      <_AssetFiles Include="$(TargetDir)assets\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_EngineFiles)"
+          DestinationFolder="$(PublishDir)Engine\%(RecursiveDir)"
+          SkipUnchangedFiles="true"
+          Condition="Exists('$(TargetDir)Engine')" />
+    <Copy SourceFiles="@(_AssetFiles)"
+          DestinationFolder="$(PublishDir)assets\%(RecursiveDir)"
+          SkipUnchangedFiles="true"
+          Condition="Exists('$(TargetDir)assets')" />
+  </Target>
+
+</Project>

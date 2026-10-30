@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BeeDPI.App/BeeDPI.App.csproj" />
+    <Project Path="src/BeeDPI.Core/BeeDPI.Core.csproj" />
+    <Project Path="src/BeeDPI.EngineHost/BeeDPI.EngineHost.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BeeDPI.Tests/BeeDPI.Tests.csproj" />
+  </Folder>
+</Solution>
