@@ -1,0 +1,20 @@
+BEE DPI
+Copyright (c) 2026 BirenDev. All rights reserved.
+
+BEE DPI is an independent Windows application developed by BirenDev.
+The user interface and engine host are original work by BirenDev.
+
+BEE DPI bundles the following third-party components under their own licenses:
+
+- GoodbyeDPI 0.2.3rc3 — Apache License 2.0 (ValdikSS and contributors)
+- WinDivert 2.2 — GNU Lesser General Public License v3.0 (Basil L. Delaney and contributors)
+- getline (NetBSD) — BSD 2-Clause
+- uthash — BSD-style (Troy D. Hanson)
+- Be Vietnam Pro — SIL Open Font License 1.1
+
+The full license texts are distributed in the "licenses" folder and in the
+release package under "LICENSE". See THIRD-PARTY-NOTICES.md for details.
+
+BEE DPI is not affiliated with, endorsed by, or sponsored by the authors of
+GoodbyeDPI, WinDivert, or any DNS provider whose addresses appear in the
+catalog. Third-party names are used only for attribution and identification.

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>BeeDPI.Core</RootNamespace>
+    <AssemblyName>BeeDPI.Core</AssemblyName>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Dns\DnsProviderCatalog.json"
+                      LogicalName="BeeDPI.Core.Dns.DnsProviderCatalog.json" />
+    <InternalsVisibleTo Include="BeeDPI.Tests" />
+  </ItemGroup>
+
+</Project>
